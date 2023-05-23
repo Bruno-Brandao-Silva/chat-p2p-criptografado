@@ -5,6 +5,7 @@ import time
 import threading
 import select
 import json
+import random
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 from cryptography.hazmat.primitives import serialization, hashes
@@ -111,8 +112,8 @@ class Server(threading.Thread):
                                 msg = fernet.decrypt(data['content'])
                                 msg = msg.decode()
                                 print(msg + '\n>>')
-                        except Exception as e:
-                            print(e)
+                        except:
+                            pass
                 except:
                     print("lost connection")
                     time.sleep(1)
@@ -139,7 +140,6 @@ class Client(threading.Thread):
         except EOFError:
             print("Error")
             return 1
-
         print("Connecting\n")
         self.connect(host, port)
         print("Connected\n")

@@ -1,6 +1,7 @@
 import socket
 import threading
 import select
+import time
 
 SOCKET_LIST = []
 TO_BE_SENT = []
@@ -52,6 +53,7 @@ class HandleConnections(threading.Thread):
                                 print(
                                     f"Error occurred while sending data to {sock.getpeername()}: {e}")
                                 continue
+                    time.sleep(0.1)
                     TO_BE_SENT.remove(data)
                     del SENT_BY[data]
             except Exception as e:
